@@ -31,7 +31,7 @@ while line:
         value = line[:idx]
         if(value == ''):
             value = 0  # 該欄位沒資料，放 0
-        tmp.append(value)
+        tmp.append(float(value))
         line = line[idx+1:]
     line = fp.readline()  # 跳行
     if(not no_label):
