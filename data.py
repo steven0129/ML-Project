@@ -25,9 +25,9 @@ while line:
             continue
         if(i == 84):  # 這一格是 label
             if(line[idx+1:-1] == 'True'):
-                label.append([1, 0])  # 人工 One-hot，是不是很直觀
+                label.append([1.0, 0.0])  # 人工 One-hot，是不是很直觀
             elif(line[idx+1:-1] == 'False'):
-                label.append([0, 1])
+                label.append([0.0, 1.0])
             else:
                 no_label = True  # 沒有 label
             break  # 找到或是沒找到 label ，沒必要繼續再找資料，直接跳行
