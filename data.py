@@ -1,5 +1,6 @@
 import sys
-path = r'full1_upload/training_data/Training freq 1D, OW 1, PW 1.csv'
+path = sys.argv[1]
+# path = r'full1_upload/training_data/Training freq 1D, OW 1, PW 1.csv'
 
 if(path[14] == 'r'):
     bias = 3  # 訓練集需偏移 3 格找到資料
@@ -34,7 +35,7 @@ while line:
         tmp.append(float(value))
         line = line[idx+1:]
     line = fp.readline()  # 跳行
-    if(not no_label):
+    if(bias == 4 or not no_label):  # 該筆資料集如果是測試資料或是一筆有 label 的訓練資料
         data.append(tmp)  # 放入該筆資料的所有特徵值
     del tmp
 fp.close()
