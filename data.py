@@ -47,6 +47,6 @@ print(len(label))
 print(len(data))
 
 # Feature Selection
-indices, importances = feature_selection.RF(data, label)
-for f in range(len(data[0])):
-    print(f'{f + 1}. feature {indices[f]} ({importances[indices[f]]})')
+importances = feature_selection.RF(data, label)
+for index, value in importances:
+    print(f'feature {index}: {value}')

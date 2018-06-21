@@ -15,5 +15,7 @@ def RF(data, label): # 使用Random Forest進行特徵選取
     
     # 排序重要性
     indices = np.argsort(importances)[::-1] # [::-1]代表反轉陣列
-
-    return indices, importances
+    importances = importances[indices]
+    
+    # zip([1, 2, 3], [4, 5, 6]) == [(1, 4), (2, 5), (3, 6)]
+    return list(zip(indices, importances))
