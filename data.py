@@ -1,4 +1,6 @@
 import sys
+import feature_selection
+
 path = sys.argv[1]
 # path = r'full1_upload/training_data/Training freq 1D, OW 1, PW 1.csv'
 
@@ -43,3 +45,8 @@ fp.close()
 # Test
 print(len(label))
 print(len(data))
+
+# Feature Selection
+indices, importances = feature_selection.RF(data, label)
+for f in range(len(data[0])):
+    print(f'{f + 1}. feature {indices[f]} ({importances[indices[f]]})')
