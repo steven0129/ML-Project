@@ -1,5 +1,11 @@
 # ML-Project
 
+## Installation
+
+```
+pip install -r requirements.txt
+```
+
 ## Quick Start
 
 ```
