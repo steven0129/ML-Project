@@ -1,6 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 
 def RF(data, label): # 使用Random Forest進行特徵選取
