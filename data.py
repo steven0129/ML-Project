@@ -1,5 +1,7 @@
 import sys
 import feature_selection
+from model import lstm
+import numpy as np
 
 path = sys.argv[1]
 # path = r'full1_upload/training_data/Training freq 1D, OW 1, PW 1.csv'
@@ -42,11 +44,18 @@ while line:
     del tmp
 fp.close()
 
-# Test
-print(len(label))
-print(len(data))
+x_train = []
+x_train.append(data)
+y_train = []
+y_train.append(label)
+
+Model = lstm()
+Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+Model.fit(np.array(x_train), np.array(y_train), epochs=20, batch_size=64)
 
 # Feature Selection
+'''
 importances = feature_selection.RF(data, label)
 for index, value in importances:
     print(f'feature {index}: {value}')
+'''
