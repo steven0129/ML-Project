@@ -57,18 +57,22 @@ data, label = data_process(test_path)
 
 x_test = []
 x_test.append(data)
-y_test = []
-y_test.append(label)
+#y_test = []
+#y_test.append(label)
 
+for i in range(len(x_test[0]), len(x_train[0])):
+    x_test[0].append([0.0] * 81)
+
+print(x_test)
 print(np.array(x_train).shape)
 print(np.array(x_test).shape)
 
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-Model.fit(np.array(x_train), np.array(y_train), epochs=1, batch_size=64)
+Model.fit(np.array(x_train), np.array(y_train), epochs=40, batch_size=64)
 result = Model.predict(np.array(x_test))
 print(result)
-np.save('result/result.npy', result)
+np.savetxt('result/result.csv', result, delimiter=',')
 
 # Feature Selection
 '''
