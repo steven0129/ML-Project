@@ -53,6 +53,13 @@ x_train.append(data)
 y_train = []
 y_train.append(label)
 
+data, label = data(test_path)
+
+x_test = []
+x_test.append(data)
+y_test = []
+y_test.append(label)
+
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 Model.fit(np.array(x_train), np.array(y_train), epochs=20, batch_size=64)
