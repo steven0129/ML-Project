@@ -48,31 +48,45 @@ def data_process(path):
 
 data, label = data_process(train_path)
 
+train_point = [0, 989, 1964, 2947, 3930, 4957, 5939, 6854, 7839, 8814, 9725, 10667, 11551]
 x_train = []
-x_train.append(data)
+for i in range(len(train_point) - 1):
+    x_train.append(data[train_point[i]:train_point[i + 1]])
+
 y_train = []
-y_train.append(label)
+for i in range(len(train_point) - 1):
+    y_train.append(label[train_point[i]:train_point[i + 1]])
 
 data, label = data_process(test_path)
 
+test_point = [0, 960, 1899, 2898, 3283]
 x_test = []
-x_test.append(data)
-#y_test = []
-#y_test.append(label)
+for i in range(len(test_point) - 1):
+    x_test.append(data[test_point[i]:test_point[i + 1]])
 
-for i in range(len(x_test[0]), len(x_train[0])):
-    x_test[0].append([0.0] * 81)
+for i in range(len(x_train)):
+    x_train[i].extend([[0.0] * 81] * (1027 - len(x_train[i])))
+    y_train[i].extend([[0.0, 1.0]] * (1027 - len(y_train[i])))
 
-print(x_test)
+for i in range(len(x_test)):
+    x_test[i].extend([[0.0] * 81] * (1027 - len(x_test[i])))
+
 print(np.array(x_train).shape)
 print(np.array(x_test).shape)
+print(np.array(y_train).shape)
 
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-Model.fit(np.array(x_train), np.array(y_train), epochs=40, batch_size=64)
-result = Model.predict(np.array(x_test))
-print(result)
-np.savetxt('result/result.csv', result[0], delimiter=',')
+Model.fit(np.array(x_train), np.array(y_train), epochs=100, batch_size=64)
+predictions = Model.predict(np.array(x_test))
+
+results = []
+lengths = [960, 939, 999, 385]
+for idx, pred in enumerate(predictions.tolist()):
+    results.extend(pred[0:lengths[idx]])
+
+print(np.array(results))
+np.savetxt('result/result.csv', np.array(results), delimiter=',')
 
 # Feature Selection
 '''
