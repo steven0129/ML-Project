@@ -69,7 +69,7 @@ print(np.array(x_test).shape)
 
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-Model.fit(np.array(x_train), np.array(y_train), epochs=1, batch_size=64)
+Model.fit(np.array(x_train), np.array(y_train), epochs=40, batch_size=64)
 result = Model.predict(np.array(x_test))
 print(result)
 np.savetxt('result/result.csv', result[0], delimiter=',')
