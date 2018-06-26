@@ -26,7 +26,7 @@ def data_process(path):
             if(i < bias):
                 line = line[idx+1:]  # 小於偏移值代表尚未找到資料 (還在標題欄)，直接跳到下一個 "," 之後
                 continue
-            if(i == 84):  # 這一格是 label
+            if(bias == 3 and i == 84):  # 這一格是 label
                 if(line[idx+1:-1] == 'True'):
                     label.append([1.0, 0.0])  # 人工 One-hot，是不是很直觀
                 elif(line[idx+1:-1] == 'False'):
@@ -59,6 +59,9 @@ x_test = []
 x_test.append(data)
 y_test = []
 y_test.append(label)
+
+print(np.array(x_train).shape)
+print(np.array(x_test).shape)
 
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
