@@ -7,7 +7,7 @@ train_path = sys.argv[1]
 test_path = sys.argv[2]
 # path = r'full1_upload/training_data/Training freq 1D, OW 1, PW 1.csv'
 
-def data(path):
+def data_process(path):
     if(path[14] == 'r'):
         bias = 3  # 訓練集需偏移 3 格找到資料
     else:
@@ -46,14 +46,14 @@ def data(path):
     fp.close()
     return data, label
 
-data, label = data(train_path)
+data, label = data_process(train_path)
 
 x_train = []
 x_train.append(data)
 y_train = []
 y_train.append(label)
 
-data, label = data(test_path)
+data, label = data_process(test_path)
 
 x_test = []
 x_test.append(data)
@@ -62,7 +62,10 @@ y_test.append(label)
 
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-Model.fit(np.array(x_train), np.array(y_train), epochs=20, batch_size=64)
+Model.fit(np.array(x_train), np.array(y_train), epochs=1, batch_size=64)
+result = Model.predict(np.array(x_test))
+print(result)
+np.save('result/result.npy', result)
 
 # Feature Selection
 '''
