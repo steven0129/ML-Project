@@ -5,6 +5,8 @@ import numpy as np
 
 train_path = sys.argv[1]
 test_path = sys.argv[2]
+# selection = [9, 44, 42, 45, 72, 43, 53, 17, 66, 30, 47, 33, 8, 20, 55, 25, 24, 32]
+# selection = [9, 10, 11, 42, 43, 44, 45, 46, 47, 72, 73, 74, 53, 51, 52, 17, 15, 16, 66, 67, 68, 30, 31, 32, 33, 34, 35, 8, 6, 7, 20, 18, 19, 55, 54, 56, 25, 24, 26]
 # path = r'full1_upload/training_data/Training freq 1D, OW 1, PW 1.csv'
 
 def data_process(path):
@@ -41,10 +43,13 @@ def data_process(path):
             line = line[idx+1:]
         line = fp.readline()  # 跳行
         if(bias == 4 or not no_label):  # 該筆資料集如果是測試資料或是一筆有 label 的訓練資料
+            # tmp1 = []
+            # for j in selection:
+            #     tmp1.append(tmp[j])
             data.append(tmp)  # 放入該筆資料的所有特徵值
-        del tmp
     fp.close()
     return data, label
+
 
 data, label = data_process(train_path)
 
@@ -77,7 +82,7 @@ print(np.array(y_train).shape)
 
 Model = lstm()
 Model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-Model.fit(np.array(x_train), np.array(y_train), epochs=100)
+Model.fit(np.array(x_train), np.array(y_train), epochs=35)
 predictions = Model.predict(np.array(x_test))
 
 results = []
