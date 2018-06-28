@@ -20,6 +20,7 @@ python data.py "full1_upload/training_data/OW16_standarize.csv" "full1_upload/te
 * Binary crossentropy
 
 ## Discussion of difficulty or problem encountered
+We have an overfitting situation at first, so we add a dropout layer to randomly drop some parameters.
 
 ## Dataset
 * [Nexperia Predictive Maintenance Full 1](https://www.kaggle.com/c/nexperia-predictive-maintenance-full-1/)
